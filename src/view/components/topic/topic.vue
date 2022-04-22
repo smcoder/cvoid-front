@@ -23,7 +23,7 @@
                     <Input v-model="formValidate.key" placeholder="请输入关键字"></Input>
                 </FormItem>
                 <FormItem label="内容" prop="content">
-                    <Input v-model="formValidate.content" placeholder="请输入内容"></Input>
+                    <Input v-model="formValidate.content" type="textarea" :autosize="{minRows: 2,maxRows: 3}"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">
@@ -113,11 +113,12 @@ export default {
             this.deleteModal = true
         },
         load () {
-            let page_no = this.page_no
-            let page_size = this.page_size
-            getTopicList({ page_no, page_size }).then(res => {
-                this.tableData = res.data.data
-                this.totalNum = res.data.count
+            let pageNo = this.page_no
+            let pageSize = this.page_size
+            getTopicList({ pageNo, pageSize }).then(res => {
+                let data = res.data.data;
+                this.tableData = data.rows
+                this.totalNum = data.total
             })
         },
         deleteOk () {
@@ -135,10 +136,10 @@ export default {
             this.operateModal = true
         },
 
-        editTopic () {
-            this.titleName = '修改关键字'
+        editTopic (data) {
+            this.titleName = '编辑关键字'
             this.formValidate.id = data.id
-            this.formValidate.key = data.title
+            this.formValidate.key = data.key
             this.formValidate.content = data.content
             this.operateModal = true
         },

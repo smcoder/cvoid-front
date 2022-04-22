@@ -32,7 +32,7 @@
                     <Input v-model="formValidate.phone" placeholder="请输入您的手机号码"></Input>
                 </FormItem>
                 <FormItem label="所属省份">
-                    <Select v-model="formValidate.address_id" clearable style="width:200px">
+                    <Select v-model="formValidate.addressId" clearable style="width:200px">
                         <Option v-for="item in provinceList" :value="item.value" :key="item">{{ item.label }}</Option>
                     </Select>
                 </FormItem>
@@ -80,7 +80,7 @@ export default {
                     }
                 },
                 { title: '电话号码', key: 'phone' },
-                { title: '所属省份', key: 'address_id' },
+                { title: '所属省份', key: 'addressId' },
                 {
                     title: '操作',
                     key: 'action',
@@ -129,7 +129,7 @@ export default {
                 account: '',
                 password: '',
                 phone: '',
-                address_id: '',
+                addressId: '',
                 role: "1",
             },
             ruleValidate: {
@@ -143,59 +143,59 @@ export default {
             },
             provinceList: [
                 {
-                    value: 'beijing',
+                    value: '北京',
                     label: '北京'
                 },
                 {
-                    value: 'shanghai',
+                    value: '上海',
                     label: '上海'
                 },
                 {
-                    value: 'tianjin',
+                    value: '天津',
                     label: '天津'
                 },
                 {
-                    value: 'chongqing',
+                    value: '重庆',
                     label: '重庆'
                 },
                 {
-                    value: 'neimenggu',
+                    value: '内蒙古',
                     label: '内蒙古'
                 },
                 {
-                    value: 'guangxi',
+                    value: '广西',
                     label: '广西'
                 },
                 {
-                    value: 'xizang',
+                    value: '西藏',
                     label: '西藏'
                 },
                 {
-                    value: 'ningxia',
+                    value: '宁夏',
                     label: '宁夏'
                 },
                 {
-                    value: 'xinjiang',
+                    value: '新疆',
                     label: '新疆'
                 },
                 {
-                    value: 'xianggang',
+                    value: '香港',
                     label: '香港'
                 },
                 {
-                    value: 'aomen',
+                    value: '澳门',
                     label: '澳门'
                 },
                 {
-                    value: 'hebei',
+                    value: '河北',
                     label: '河北'
                 },
                 {
-                    value: 'shanxi1',
+                    value: '山西',
                     label: '山西'
                 },
                 {
-                    value: 'liaoning',
+                    value: '辽宁',
                     label: '辽宁'
                 },
                 {
@@ -203,79 +203,79 @@ export default {
                     label: '吉林'
                 },
                 {
-                    value: 'heilongjiang',
+                    value: '黑龙江',
                     label: '黑龙江'
                 },
                 {
-                    value: 'jiangsu',
+                    value: '江苏',
                     label: '江苏'
                 },
                 {
-                    value: 'zhejiang',
+                    value: '浙江',
                     label: '浙江'
                 },
                 {
-                    value: 'anhui',
+                    value: '安徽',
                     label: '安徽'
                 },
                 {
-                    value: 'fujian',
+                    value: '福建',
                     label: '福建'
                 },
                 {
-                    value: 'jiangxi',
+                    value: '江西',
                     label: '江西'
                 },
                 {
-                    value: 'shandong',
+                    value: '山东',
                     label: '山东'
                 },
                 {
-                    value: 'henan',
+                    value: '河南',
                     label: '河南'
                 },
                 {
-                    value: 'hubei',
+                    value: '湖北',
                     label: '湖北'
                 },
                 {
-                    value: 'hunan',
+                    value: '湖南',
                     label: '湖南'
                 },
                 {
-                    value: 'guangdong',
+                    value: '广东',
                     label: '广东'
                 },
                 {
-                    value: 'hainan',
+                    value: '海南',
                     label: '海南'
                 },
                 {
-                    value: 'sichuan',
+                    value: '四川',
                     label: '四川'
                 },
                 {
-                    value: 'guizhou',
+                    value: '贵州',
                     label: '贵州'
                 },
                 {
-                    value: 'yunnan',
+                    value: '云南',
                     label: '云南'
                 },
                 {
-                    value: 'shanxi',
+                    value: '陕西',
                     label: '陕西'
                 },
                 {
-                    value: 'gansu',
+                    value: '甘肃',
                     label: '甘肃'
                 },
                 {
-                    value: 'qinghai',
+                    value: '青海',
                     label: '青海'
                 },
                 {
-                    value: 'taiwan',
+                    value: '台湾',
                     label: '台湾'
                 }
             ],
@@ -287,11 +287,12 @@ export default {
             this.deleteModal = true
         },
         load () {
-            let page_no = this.page_no
-            let page_size = this.page_size
-            getUserTableData({ page_no, page_size }).then(res => {
-                this.tableData = res.data.data
-                this.totalNum = res.data.count
+            let pageNo = this.page_no
+            let pageSize = this.page_size
+            getUserTableData({ pageNo, pageSize }).then(res => {
+                let data = res.data.data;
+                this.tableData = data.rows
+                this.totalNum = data.total
             })
         },
         deleteOk () {
@@ -305,13 +306,11 @@ export default {
             this.deleteModal = false
         },
         changeDate (event) {
-            this.formValidate.birth = event
         },
         handleSubmit () {
             this.$refs['formValidate'].validate((valid) => {
                 if (valid) {
                     let form = this.formValidate
-                    form.birth = new Date(form.birth).Format('yyyy-mm-dd hh:mm:ss')
                     if (this.titleName == '编辑用户') {
                         editUserData({ form }).then(res => {
                             if (res.data.code == '2') {
@@ -347,9 +346,8 @@ export default {
             this.formValidate.account = ''
             this.formValidate.password = ''
             this.formValidate.phone = ''
-            this.formValidate.sex = ''
+            this.formValidate.addressId = ''
             this.formValidate.role = null
-            this.formValidate.birth = null
             this.operateModal = false
         },
         addUser () {
@@ -365,9 +363,8 @@ export default {
             this.formValidate.account = data.account
             this.formValidate.password = data.password
             this.formValidate.phone = data.phone
-            this.formValidate.sex = data.sex + ''
+            this.formValidate.addressId = data.addressId + ''
             this.formValidate.role = data.role + ''
-            this.formValidate.birth = data.birth
             this.operateModal = true
         },
         initFormatter () {

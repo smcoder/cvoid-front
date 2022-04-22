@@ -16,7 +16,7 @@
             <Col span="11" offset="2">
                 <Card shadow>
                     <p>客服回复：</p>
-                    <p><Input v-model="formCustom.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" readonly></Input></p>
+                    <p><Input v-model="formCustom.content" type="textarea" :autosize="{minRows: 2,maxRows: 30}" readonly></Input></p>
                 </Card>
             </Col>
         </Row>
@@ -45,7 +45,7 @@ export default {
             let key = this.formCustom.key;
             getSuggestion({ key }).then(res => {
                 let value = res.data.data;
-                this.content = this.content + '\n' + value.content;
+                this.formCustom.content = this.formCustom.content + '\n' + value[0].content;
             })
         }
     }

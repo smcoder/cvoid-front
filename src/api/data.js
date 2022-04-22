@@ -11,10 +11,10 @@ export const getSuggestion = ({key}) => {
   })
 }
 
-export const getUserTableData = ({ page_no, page_size }) => {
+export const getUserTableData = ({ pageNo, pageSize }) => {
   const data = {
-    page_no,
-    page_size
+    pageNo,
+    pageSize
   }
   return axios.request({
     url: 'user/list',
@@ -183,14 +183,10 @@ export const deleteReceiveData = ({ deviceId }) => {
     method: 'post'
   })
 }
-// ======================== 消防设置领取 ===========================
-
-// ======================== 消防设置领取 ===========================
-// =========================== 公告管理 ===========================
-export const getTopicList = ({ page_no, page_size }) => {
+export const getTopicList = ({ pageNo, pageSize }) => {
   const data = {
-    page_no,
-    page_size
+    pageNo,
+    pageSize
   }
   return axios.request({
     url: 'topic/list',
