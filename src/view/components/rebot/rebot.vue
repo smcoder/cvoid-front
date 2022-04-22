@@ -7,13 +7,16 @@
                     <p>&nbsp;</p>
                     <p><Input v-model="formCustom.key" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input></p>
                     <p>&nbsp;</p>
-                    <Button type="primary" @click="handleSubmit('formCustom')">提交</Button>
+                    <Button type="primary" @click="handleSubmit('formCustom')">发送
+                        
+                    </Button>
                 </Card>
 
             </Col>
             <Col span="11" offset="2">
                 <Card shadow>
                     <p>客服回复：</p>
+                    <p><Input v-model="formCustom.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" readonly></Input></p>
                 </Card>
             </Col>
         </Row>
@@ -22,7 +25,7 @@
 
 <script>
 import Tables from '_c/tables'
-import { getUserTableData, deleteUserData, addUserData, editUserData } from '@/api/data'
+import { getSuggestion } from '@/api/data'
 
 export default {
     name: 'tables_page',
@@ -33,12 +36,17 @@ export default {
         return {
             formCustom: {
                 key: '',
+                content: ''
             }
         }
     },
     methods: {
         handleSubmit () {
-
+            let key = this.formCustom.key;
+            getSuggestion({ key }).then(res => {
+                let value = res.data.data;
+                this.content = this.content + '\n' + value.content;
+            })
         }
     }
 }

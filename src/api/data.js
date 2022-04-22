@@ -1,5 +1,16 @@
 import axios from '@/libs/api.request'
 
+export const getSuggestion = ({key}) => {
+  const data = {
+    key: key
+  }
+  return axios.request({
+    url: 'suggestion',
+    data,
+    method: 'post'
+  })
+}
+
 export const getUserTableData = ({ page_no, page_size }) => {
   const data = {
     page_no,
