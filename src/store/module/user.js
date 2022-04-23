@@ -102,11 +102,11 @@ export default {
         })
       })
     },
-    handleRegister({commit}, {account, password, role, phone, address_id, name}) {
+    handleRegister({commit}, {account, password, role, phone, addressId, name}) {
       account = account.trim()
       return new Promise((resolve, reject) => {
         register({
-          account, password, role, phone, address_id, name
+          account, password, role, phone, addressId, name
         }).then(res => {
           resolve(res);
         }).catch(err => {

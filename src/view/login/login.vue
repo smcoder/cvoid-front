@@ -42,8 +42,8 @@ export default {
                 })
             })
         },
-        registerSubmit({account, password, role, phone, address_id, name}) {
-            this.handleRegister({account, password, role, phone, address_id, name}).then(res => {
+        registerSubmit({account, password, role, phone, addressId, name}) {
+            this.handleRegister({account, password, role, phone, addressId, name}).then(res => {
                 if (res.data.code == '-1') {
                     this.$Message.error(res.data);
                     return;
